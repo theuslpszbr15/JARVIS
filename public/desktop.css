@@ -1,0 +1,1 @@
+.download-row{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid var(--line);font-size:13px}.download-row small{display:block;color:var(--muted);font-size:11px;margin-top:5px}.download-row .text-button{margin:12px 0;flex-shrink:0}#download-progress{overflow-wrap:anywhere}dialog{max-height:calc(100dvh - 32px);overflow-y:auto}

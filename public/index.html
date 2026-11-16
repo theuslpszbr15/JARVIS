@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171c1c">
+  <title>JARVIS | Assistente pessoal</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; media-src 'self' blob:; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./desktop.css">
+  <script src="../node_modules/lucide/dist/umd/lucide.js" defer></script>
+  <script src="./desktop-audio.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <span class="wordmark">J<span> / </span>JARVIS</span>
+    <div class="connection"><span class="indicator"></span><span id="connection">Conectando</span></div>
+    <button id="settings-button" class="icon-button" title="Configurar voz" aria-label="Configurar voz"><i data-lucide="sliders-horizontal"></i></button>
+  </header>
+  <main>
+    <section class="presence" aria-labelledby="title">
+      <div class="eyebrow"><span>ASSISTENTE PESSOAL</span><span>01 / LOCAL</span></div>
+      <h1 id="title">JARVIS<span>.</span></h1>
+      <p class="presence-status" id="presence-status">A disposicao.</p>
+      <div class="visual"><canvas id="core" aria-label="Nucleo visual do assistente"></canvas><div class="core-label"><span id="core-state">PRONTO</span><span class="core-number">J / 01</span></div></div>
+      <div class="voice-controls">
+        <button id="mic" class="mic-button" title="Iniciar microfone" aria-label="Iniciar microfone"><i data-lucide="mic"></i></button>
+        <span id="mic-status">Microfone desligado</span>
+        <button id="stop" class="icon-button dark" title="Interromper fala" aria-label="Interromper fala" disabled><i data-lucide="square"></i></button>
+      </div>
+      <footer class="presence-footer"><span id="engine">MODO BASICO</span><time id="clock"></time></footer>
+    </section>
+    <section class="conversation" aria-labelledby="conversation-title">
+      <div class="conversation-header"><div><span class="eyebrow">CANAL DIRETO</span><h2 id="conversation-title">Conversa</h2></div><button id="clear" class="icon-button" title="Limpar conversa" aria-label="Limpar conversa"><i data-lucide="trash-2"></i></button></div>
+      <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+      <div class="composer-area">
+        <div class="quick-actions"><button data-prompt="Que horas sao?"><i data-lucide="clock-3"></i>Hora</button><button data-prompt="Qual a data de hoje?"><i data-lucide="calendar-days"></i>Data</button><button data-prompt="O que voce faz?"><i data-lucide="command"></i>Comandos</button></div>
+        <p id="notice" class="notice" role="status"></p>
+        <form id="composer"><label class="sr-only" for="prompt">Mensagem para JARVIS</label><textarea id="prompt" rows="1" maxlength="2000" placeholder="O que vamos fazer hoje?"></textarea><button id="send" type="submit" class="send-button" title="Enviar mensagem" aria-label="Enviar mensagem"><i data-lucide="arrow-up"></i></button></form>
+        <div class="composer-footer"><span id="activity">Pronto para receber</span><label class="speech-toggle"><input id="speech" type="checkbox" checked> Respostas em voz</label></div>
+      </div>
+    </section>
+  </main>
+  <dialog id="settings">
+    <div class="dialog-header"><h2>Voz e sistema</h2><button id="close-settings" class="icon-button" title="Fechar" aria-label="Fechar configuracoes"><i data-lucide="x"></i></button></div>
+    <label for="voice">Voz sintetica</label><select id="voice"><option value="">Padrao do sistema</option></select>
+    <label for="rate">Velocidade <output id="rate-value">0.95</output></label><input id="rate" type="range" min="0.6" max="1.4" step="0.05" value="0.95">
+    <label for="pitch">Tonalidade <output id="pitch-value">0.85</output></label><input id="pitch" type="range" min="0.5" max="1.4" step="0.05" value="0.85">
+    <button id="test-voice" class="text-button"><i data-lucide="volume-2"></i>Testar voz</button>
+    <div id="offline-settings" hidden>
+      <div class="download-row"><span>IA offline <small>Qwen 2.5 / aprox. 1.2 GB</small></span><button id="install-ai" class="text-button"><i data-lucide="download"></i>Baixar IA</button></div>
+      <div class="download-row"><span>Microfone offline <small>Whisper / aprox. 160 MB</small></span><button id="install-microphone" class="text-button"><i data-lucide="download"></i>Baixar</button></div>
+      <p id="download-progress" class="notice" role="status"></p>
+    </div>
+    <dl><div><dt>Provedor</dt><dd id="provider-info">Local</dd></div><div><dt>Modelo</dt><dd id="model-info">Comandos basicos</dd></div><div><dt>Voz do filme</dt><dd>Nao incluida</dd></div></dl>
+  </dialog>
+</body>
+</html>

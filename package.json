@@ -1,0 +1,50 @@
+{
+  "name": "jarvis-local",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "desktop/main.cjs",
+  "description": "Assistente pessoal desktop com motores locais",
+  "author": "JARVIS Local",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win portable --x64",
+    "test": "node --test",
+    "test:ui": "node scripts/check-desktop.mjs",
+    "setup:voice": "node desktop/setup-voice.cjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "lucide": "^0.468.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "electron": "^44.2.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "local.jarvis.assistant",
+    "productName": "JARVIS",
+    "asar": true,
+    "extraResources": [{ "from": "runtime/voice", "to": "voice", "filter": ["**/*", "!sample.wav"] }],
+    "files": [
+      "desktop/**",
+      "public/**",
+      "lib/**",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "portable",
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "JARVIS.exe"
+    }
+  }
+}
